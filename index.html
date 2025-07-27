@@ -46,8 +46,8 @@
     <header class="bg-white sticky top-0 z-40 border-b border-slate-200">
         <div class="container mx-auto px-4 sm:px-6 py-3 flex justify-between items-center">
             <a href="#">
-                <!-- LOGO: URL directa de Imgur ya integrada -->
-                <img src="https://i.imgur.com/c4pUa0g.png" alt="Logo de Jairokov" class="h-10 w-auto" id="logo-img">
+                <!-- LOGO: Ahora busca el logo en la carpeta raíz del servidor -->
+                <img src="/logo.png" alt="Logo de Jairokov" class="h-10 w-auto" id="logo-img">
             </a>
             
             <!-- Navegación para Escritorio -->
@@ -344,3 +344,12 @@
     </script>
 </body>
 </html>
+```
+
+```dockerfile
+# Usa una imagen base de Nginx, un servidor web ligero y eficiente
+FROM nginx:alpine
+
+# Copia el archivo de la página web y el logo a la carpeta pública del servidor
+COPY index.html /usr/share/nginx/html
+COPY logo.png /usr/share/nginx/html
