@@ -348,12 +348,4 @@
     </script>
 </body>
 </html>
-```
 
-```dockerfile
-# Usa una imagen base de Nginx, un servidor web ligero y eficiente
-FROM nginx:alpine
-
-# Copia el archivo de la página web y el logo a la carpeta pública del servidor
-COPY index.html /usr/share/nginx/html
-COPY logo.png /usr/share/nginx/html
