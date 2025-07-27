@@ -28,7 +28,7 @@
             max-width: 768px; /* max-w-3xl */
             margin-left: auto;
             margin-right: auto;
-            height: 320px; /* h-80 */
+            height: 300px; /* h-72 */
         }
         @media (min-width: 768px) {
             .chart-container {
@@ -47,21 +47,44 @@
     <header class="bg-slate-50/80 backdrop-blur-lg sticky top-0 z-40">
         <div class="container mx-auto px-6 py-4 flex justify-between items-center">
             <a href="#" class="text-2xl font-bold text-slate-900">jairokov</a>
+            
+            <!-- Navegación para Escritorio -->
             <nav class="hidden md:flex items-center space-x-8">
                 <a href="#soluciones" class="text-slate-600 hover:text-cyan-600 transition-colors">Soluciones</a>
                 <a href="#proceso" class="text-slate-600 hover:text-cyan-600 transition-colors">Proceso</a>
                 <a href="#impacto" class="text-slate-600 hover:text-cyan-600 transition-colors">Impacto</a>
             </nav>
-            <a href="#contacto" class="bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-2 px-5 rounded-lg shadow-md hover:shadow-lg transition-all">
+            <a href="#contacto" class="hidden md:inline-block bg-cyan-600 hover:bg-cyan-700 text-white font-bold py-2 px-5 rounded-lg shadow-md hover:shadow-lg transition-all">
                 Agendar Sesión
             </a>
+
+            <!-- Botón de Menú Móvil (Hamburguesa) -->
+            <div class="md:hidden">
+                <button id="mobile-menu-button" class="text-slate-900">
+                    <svg class="w-6 h-6" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M4 6h16M4 12h16m-7 6h7"></path></svg>
+                </button>
+            </div>
         </div>
     </header>
+
+    <!-- Menú de Navegación Móvil (Overlay) -->
+    <div id="mobile-menu" class="hidden md:hidden fixed inset-0 bg-slate-900/95 z-50">
+        <div class="flex flex-col items-center justify-center h-full">
+            <button id="close-menu-button" class="absolute top-6 right-6 text-white">
+                <svg class="w-8 h-8" fill="none" stroke="currentColor" viewBox="0 0 24 24" xmlns="http://www.w3.org/2000/svg"><path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M6 18L18 6M6 6l12 12"></path></svg>
+            </button>
+            <a href="#soluciones" class="mobile-menu-link text-white text-2xl font-bold mb-8">Soluciones</a>
+            <a href="#proceso" class="mobile-menu-link text-white text-2xl font-bold mb-8">Proceso</a>
+            <a href="#impacto" class="mobile-menu-link text-white text-2xl font-bold mb-8">Impacto</a>
+            <a href="#contacto" class="mobile-menu-link bg-cyan-600 text-white font-bold py-3 px-8 rounded-lg text-xl">Agendar Sesión</a>
+        </div>
+    </div>
+
 
     <main>
         <section class="text-center py-20 md:py-32">
             <div class="container mx-auto px-6">
-                <h1 class="text-4xl md:text-6xl font-black text-slate-900 leading-tight mb-4">Escala tu negocio, no tus horas.</h1>
+                <h1 class="text-4xl sm:text-5xl md:text-6xl font-black text-slate-900 leading-tight mb-4">Escala tu negocio, no tus horas.</h1>
                 <p class="text-lg md:text-xl text-slate-600 max-w-3xl mx-auto mb-8">
                     Implementamos automatización con Inteligencia Artificial para empresas de habla hispana que quieren crecer de forma más inteligente.
                 </p>
@@ -76,17 +99,17 @@
                 <div class="text-center max-w-3xl mx-auto">
                     <h2 class="text-3xl md:text-4xl font-bold text-slate-900 mb-4">¿Tu día a día se ve así?</h2>
                     <p class="text-slate-600 mb-8">Sabemos que escalar un negocio digital presenta desafíos únicos. Selecciona tu perfil y descubre cómo podemos ayudarte a superarlos.</p>
-                    <div class="flex justify-center space-x-4 mb-10">
-                        <button id="btn-emprendedora" class="persona-btn text-sm md:text-base font-semibold py-3 px-6 rounded-lg border-2 border-slate-200 hover:border-cyan-600 transition-all">
+                    <div class="flex flex-col sm:flex-row justify-center items-center gap-4 mb-10">
+                        <button id="btn-emprendedora" class="persona-btn w-full sm:w-auto text-base font-semibold py-3 px-6 rounded-lg border-2 border-slate-200 hover:border-cyan-600 transition-all">
                             Soy Emprendedora Digital
                         </button>
-                        <button id="btn-pyme" class="persona-btn text-sm md:text-base font-semibold py-3 px-6 rounded-lg border-2 border-slate-200 hover:border-cyan-600 transition-all">
+                        <button id="btn-pyme" class="persona-btn w-full sm:w-auto text-base font-semibold py-3 px-6 rounded-lg border-2 border-slate-200 hover:border-cyan-600 transition-all">
                             Soy Dueño de PYME
                         </button>
                     </div>
                 </div>
 
-                <div id="pain-points-container" class="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
+                <div id="pain-points-container" class="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-4 gap-6 max-w-6xl mx-auto">
                 </div>
             </div>
         </section>
@@ -292,6 +315,28 @@
                 updateChart('pyme');
             });
 
+            // Lógica del menú móvil
+            const mobileMenuButton = document.getElementById('mobile-menu-button');
+            const closeMenuButton = document.getElementById('close-menu-button');
+            const mobileMenu = document.getElementById('mobile-menu');
+            const mobileMenuLinks = document.querySelectorAll('.mobile-menu-link');
+
+            mobileMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.remove('hidden');
+            });
+
+            closeMenuButton.addEventListener('click', () => {
+                mobileMenu.classList.add('hidden');
+            });
+
+            mobileMenuLinks.forEach(link => {
+                link.addEventListener('click', () => {
+                    mobileMenu.classList.add('hidden');
+                });
+            });
+
+
+            // Carga inicial
             btnEmprendedora.click();
         });
     </script>
